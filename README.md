@@ -4,8 +4,6 @@ Every project I built while going through Jonas Schmedtmann's React and JavaScri
 
 _Note: this is old work for me at this point. The code follows the lessons closely and isn't polished or refactored. The courses, their starter code and assets come from [Jonas Schmedtmann](https://codingheroes.io/). This repo is not affiliated with or endorsed by him. Some apps originally needed a backend (Supabase, json-server, the OMDb API, …); here their data is mocked with local seed data so they run without one, and those apps show a small "Demo mode" note._
 
-![Certificate of completion](.github/certificate.png)
-
 ## Running locally
 
 ```bash

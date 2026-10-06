@@ -1,0 +1,40 @@
+"use client";
+
+import { useSession } from "../_lib/auth";
+import { getBookedDatesByCabinId, getSettings } from "../_lib/data-service";
+import { useLocalData } from "../_lib/useLocalData";
+import DateSelector from "./DateSelector";
+import LoginMessage from "./LoginMessage";
+import ReservationForm from "./ReservationForm";
+import Spinner from "./Spinner";
+
+// Client component: booked dates include the bookings made in this browser,
+// and the session only exists in the browser
+function Reservation({ cabin }) {
+  const data = useLocalData(
+    () => Promise.all([getSettings(), getBookedDatesByCabinId(cabin.id)]),
+    [cabin.id]
+  );
+  const session = useSession();
+
+  if (!data || session === undefined) return <Spinner />;
+
+  const [settings, bookedDates] = data;
+
+  return (
+    <div className="grid grid-cols-2 border border-primary-800 min-h-[400px]">
+      <DateSelector
+        settings={settings}
+        bookedDates={bookedDates}
+        cabin={cabin}
+      />
+      {session?.user ? (
+        <ReservationForm cabin={cabin} user={session.user} />
+      ) : (
+        <LoginMessage />
+      )}
+    </div>
+  );
+}
+
+export default Reservation;

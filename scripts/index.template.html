@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jonas Schmedtmann Journey</title>
+    <meta name="description" content="Projects from Jonas Schmedtmann's React and JavaScript courses. Pick a project to open it.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚛️</text></svg>">
+    <script>
+        try {
+            const theme = localStorage.getItem('picker:theme')
+            if (theme === 'light' || theme === 'dark') document.documentElement.dataset.theme = theme
+        } catch {}
+    </script>
+    <style>
+        :root {
+            color-scheme: light;
+            --bg: #f7f7f5;
+            --surface: #ffffff;
+            --border: #e3e3de;
+            --text: #1b1b19;
+            --muted: #6c6c66;
+            --accent: #0b7fab;
+            --tag-bg: #fff4dc;
+            --tag-text: #8a5a00;
+        }
+        @media (prefers-color-scheme: dark) {
+            :root:not([data-theme="light"]) {
+                color-scheme: dark;
+                --bg: #0f1013;
+                --surface: #17181d;
+                --border: #2a2b33;
+                --text: #ececf1;
+                --muted: #8e8f9a;
+                --accent: #61dafb;
+                --tag-bg: #2d2615;
+                --tag-text: #f0c46a;
+            }
+        }
+        :root[data-theme="dark"] {
+            color-scheme: dark;
+            --bg: #0f1013;
+            --surface: #17181d;
+            --border: #2a2b33;
+            --text: #ececf1;
+            --muted: #8e8f9a;
+            --accent: #61dafb;
+            --tag-bg: #2d2615;
+            --tag-text: #f0c46a;
+        }
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+        }
+        main { max-width: 1080px; margin: 0 auto; padding: 48px 16px 64px; }
+        header { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 16px; margin-bottom: 12px; }
+        h1 { margin: 0; font-size: 28px; letter-spacing: -0.02em; }
+        header p { margin: 4px 0 0; color: var(--muted); }
+        .controls { display: flex; gap: 8px; width: min(380px, 100%); }
+        input {
+            flex: 1;
+            min-width: 0;
+            padding: 10px 14px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: var(--surface);
+            color: var(--text);
+            font: inherit;
+        }
+        input:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+        button {
+            flex: none;
+            width: 44px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: var(--surface);
+            color: var(--text);
+            font-size: 18px;
+            cursor: pointer;
+        }
+        .group { margin-top: 28px; }
+        h2 { display: flex; align-items: center; gap: 8px; margin: 0 0 12px; font-size: 15px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
+        .count { font: 600 12px/1 ui-monospace, monospace; padding: 3px 7px; border-radius: 999px; border: 1px solid var(--border); }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 10px; }
+        .card {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            align-items: start;
+            column-gap: 12px;
+            padding: 14px 16px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: var(--surface);
+            color: inherit;
+            text-decoration: none;
+            transition: border-color 0.15s, transform 0.15s;
+        }
+        .card:hover, .card:focus-visible { border-color: var(--accent); transform: translateY(-1px); outline: none; }
+        .number { font: 600 13px/1 ui-monospace, monospace; color: var(--accent); padding-top: 5px; min-width: 2ch; }
+        .body { display: flex; flex-direction: column; min-width: 0; }
+        .title { font-weight: 600; }
+        .description { color: var(--muted); font-size: 14px; }
+        .tag {
+            grid-column: 2;
+            justify-self: start;
+            margin-top: 8px;
+            padding: 1px 8px;
+            border-radius: 999px;
+            background: var(--tag-bg);
+            color: var(--tag-text);
+            font-size: 12px;
+        }
+        .empty { color: var(--muted); display: none; padding: 24px 0; }
+        footer { margin-top: 48px; color: var(--muted); font-size: 13px; }
+        footer a { color: inherit; }
+        @media (max-width: 520px) {
+            main { padding-top: 32px; }
+            h1 { font-size: 24px; }
+            .grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <header>
+            <div>
+                <h1>Jonas Schmedtmann Journey</h1>
+                <p><!-- COUNT --> projects · pick one to open it</p>
+            </div>
+            <div class="controls">
+                <input id="search" type="search" placeholder="Search projects…" aria-label="Search projects" autocomplete="off">
+                <button id="theme" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">◐</button>
+            </div>
+        </header>
+        <!-- SECTIONS -->
+        <p class="empty" id="empty">No project matches your search.</p>
+        <footer>
+            Projects from <a href="https://codingheroes.io" target="_blank" rel="noopener">Jonas Schmedtmann</a>'s courses, built while following along.
+            Apps tagged “Mocked data” run on local demo data instead of a real backend.
+        </footer>
+    </main>
+    <script>
+        const search = document.getElementById('search')
+        const groups = [...document.querySelectorAll('[data-group]')]
+        const empty = document.getElementById('empty')
+
+        search.addEventListener('input', () => {
+            const terms = search.value.trim().toLowerCase().split(/\s+/).filter(Boolean)
+            let total = 0
+            for (const group of groups) {
+                let visible = 0
+                for (const card of group.querySelectorAll('.card')) {
+                    const match = terms.every((term) => card.dataset.search.includes(term))
+                    card.style.display = match ? '' : 'none'
+                    if (match) visible++
+                }
+                group.style.display = visible ? '' : 'none'
+                total += visible
+            }
+            empty.style.display = total ? 'none' : 'block'
+        })
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === '/' && document.activeElement !== search) {
+                event.preventDefault()
+                search.focus()
+            }
+        })
+
+        document.getElementById('theme').addEventListener('click', () => {
+            const root = document.documentElement
+            const current = root.dataset.theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+            const next = current === 'dark' ? 'light' : 'dark'
+            root.dataset.theme = next
+            try { localStorage.setItem('picker:theme', next) } catch {}
+        })
+    </script>
+</body>
+</html>

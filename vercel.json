@@ -1,0 +1,13 @@
+{
+    "$schema": "https://openapi.vercel.sh/vercel.json",
+    "framework": null,
+    "installCommand": "npm install",
+    "buildCommand": "npm run build",
+    "outputDirectory": "dist",
+    "trailingSlash": true,
+    "rewrites": [
+        { "source": "/10-worldwise/:path*", "destination": "/10-worldwise/index.html" },
+        { "source": "/14-fast-react-pizza/:path*", "destination": "/14-fast-react-pizza/index.html" },
+        { "source": "/15-the-wild-oasis/:path*", "destination": "/15-the-wild-oasis/index.html" }
+    ]
+}

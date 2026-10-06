@@ -1,0 +1,35 @@
+{
+  "name": "jonas-schmedtmann-journey",
+  "version": "1.0.0",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "description": "Projects from Jonas Schmedtmann's React and JavaScript courses, built into one static site with a project picker.",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "preview": "node scripts/serve.mjs"
+  },
+  "workspaces": [
+    "02-pizza-menu",
+    "03-steps",
+    "04-travel-list",
+    "05-eat-n-split",
+    "06-usepopcorn",
+    "07-how-react-works",
+    "08-classy-weather",
+    "09-react-quiz",
+    "10-worldwise",
+    "11-atomic-blog",
+    "12-workout-timer",
+    "13-redux-intro",
+    "14-fast-react-pizza",
+    "15-the-wild-oasis",
+    "16-manual-ssr",
+    "17-the-wild-oasis-website",
+    "18-nextjs-pages-router",
+    "js-08-forkify"
+  ],
+  "devDependencies": {
+    "ajv": "^8.17.1"
+  }
+}
